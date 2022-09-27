@@ -1,4 +1,4 @@
-import urlparse
+from urllib.parse import urlparse, parse_qs
 from pytube import YouTube
 import os 
 import whisper 
@@ -15,12 +15,12 @@ class Main:
         - http://www.youtube.com/embed/SA2iWivDJiE
         - http://www.youtube.com/v/SA2iWivDJiE?version=3&amp;hl=en_US
         """
-        query = urlparse.urlparse(url)
+        query = urlparse(url)
         if query.hostname == 'youtu.be':
             return query.path[1:]
         if query.hostname in ('www.youtube.com', 'youtube.com'):
             if query.path == '/watch':
-                p = urlparse.parse_qs(query.query)
+                p = parse_qs(query.query)
                 return p['v'][0]
             if query.path[:7] == '/embed/':
                 return query.path.split('/')[2]

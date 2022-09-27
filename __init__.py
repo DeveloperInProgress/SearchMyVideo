@@ -6,7 +6,7 @@ main_obj = Main()
 
 @app.route('/transcribe')
 def transcribe():
-    url = request.json.url
+    url = request.json['url']
     audio = main_obj.get_mp3_from_yt(url)
     transcription = main_obj.get_transcription(audio)
     return transcription
